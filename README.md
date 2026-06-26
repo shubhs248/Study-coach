@@ -171,6 +171,23 @@ Same local models, same `learner.db` — the CLI and UI share your progress.
 3. `interview` — pressure-test yourself before a real interview.
 4. Repeat. The coach keeps bringing back exactly what you keep getting wrong.
 
+### ♻️ Resetting your progress
+
+All your progress (mastery, streaks, history) lives in a single local file,
+`learner.db`. It's **git-ignored**, so it never gets pushed and stays private to
+each machine. To wipe the slate clean and start fresh, just delete it — the app
+recreates it automatically on the next run:
+
+```bash
+# Windows PowerShell
+del learner.db
+# macOS/Linux
+rm learner.db
+```
+
+> If you cloned this repo and the dashboard shows numbers you didn't earn, that's
+> leftover demo data — delete `learner.db` to reset to a true blank slate.
+
 ---
 
 ## ⚙️ Configuration
@@ -255,5 +272,5 @@ they never need to travel with you.
 
 ---
 
-Made by **Shubham Sharma** — Senior DevOps & Platform Engineer.
+Made for **Shubham Sharma** — Senior DevOps & Platform Engineer.
 MIT licensed: free to use, fork, and share.

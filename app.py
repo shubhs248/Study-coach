@@ -106,17 +106,35 @@ with st.sidebar:
     st.title("🎓 Study Coach")
     st.caption("Local · offline · private")
 
-    st.write(f"**Chat model:** `{config.CHAT_MODEL}`")
-    st.write(f"**Embed model:** `{config.EMBED_MODEL}`")
+    ollama_ok = status["ollama"]
+    index_ok = status["index"]
+    all_ready = ollama_ok and index_ok
 
-    if status["ollama"]:
-        st.success("Ollama connected")
-    else:
-        st.error("Ollama not reachable")
-        st.caption(f"Start Ollama and pull `{config.CHAT_MODEL}` & `{config.EMBED_MODEL}`.")
+    def _status_line(ok: bool, name: str, ok_text: str, bad_text: str) -> str:
+        return f"{'✅' if ok else '❌'} **{name}:** {ok_text if ok else bad_text}"
 
-    if not status["index"]:
-        st.warning("No index yet — run `python ingest.py` in a terminal.")
+    with st.container(border=True):
+        header = "✅ Setup status · ready" if all_ready else "⚠️ Setup status · action needed"
+        st.markdown(f"**{header}**")
+        st.markdown(
+            f"{_status_line(ollama_ok, 'Ollama', 'running', 'not running')}  \n"
+            f"{_status_line(index_ok, 'Labs', 'indexed', 'not indexed')}"
+        )
+        if not all_ready:
+            with st.expander("Steps to fix", expanded=True):
+                step = 1
+                if not ollama_ok:
+                    st.markdown(
+                        f"**{step}. Start Ollama** and pull the models:\n"
+                        f"```\nollama pull {config.CHAT_MODEL}\n"
+                        f"ollama pull {config.EMBED_MODEL}\n```"
+                    )
+                    step += 1
+                if not index_ok:
+                    st.markdown(f"**{step}. Index your labs:**\n```\npython ingest.py\n```")
+                st.caption("This panel turns green once both are ready.")
+
+    st.caption(f"chat `{config.CHAT_MODEL}` · embed `{config.EMBED_MODEL}`")
 
     # Index-based nav so buttons elsewhere can switch pages without widget-key clashes.
     if "nav" not in st.session_state:
@@ -212,7 +230,7 @@ def page_dashboard() -> None:
             }
             for r in studied[:15]
         ]
-        st.dataframe(pd.DataFrame(rows), use_container_width=True, hide_index=True)
+        st.dataframe(pd.DataFrame(rows), width="stretch", hide_index=True)
     else:
         st.caption("No attempts yet. Head to the Study tab to begin.")
 

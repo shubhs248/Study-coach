@@ -9,19 +9,28 @@ from __future__ import annotations
 import sys
 from typing import Iterable
 
-import chromadb
-import ollama
-
 import config
 
-# A single Ollama client pointed at your local server.
-_client = ollama.Client(host=config.OLLAMA_HOST)
+# chromadb and ollama are imported lazily (only when actually needed) so the
+# app starts fast and pages that don't need them (e.g. the dashboard) work even
+# before those heavier packages are installed.
+_client = None
+
+
+def _ollama_client():
+    """Return a cached Ollama client, importing the package on first use."""
+    global _client
+    if _client is None:
+        import ollama
+
+        _client = ollama.Client(host=config.OLLAMA_HOST)
+    return _client
 
 
 def ollama_up() -> bool:
     """Return True if the local Ollama server is reachable."""
     try:
-        _client.list()
+        _ollama_client().list()
         return True
     except Exception:
         return False
@@ -45,25 +54,29 @@ def require_ollama() -> None:
 
 def embed(texts: list[str]) -> list[list[float]]:
     """Embed a batch of texts with the local embedding model."""
+    client = _ollama_client()
     vectors: list[list[float]] = []
     for text in texts:
-        resp = _client.embeddings(model=config.EMBED_MODEL, prompt=text)
+        resp = client.embeddings(model=config.EMBED_MODEL, prompt=text)
         vectors.append(resp["embedding"])
     return vectors
 
 
 def chat(messages: list[dict], stream: bool = True):
     """Send a chat request to the local model. Yields text chunks if streaming."""
+    client = _ollama_client()
     if stream:
-        for part in _client.chat(model=config.CHAT_MODEL, messages=messages, stream=True):
+        for part in client.chat(model=config.CHAT_MODEL, messages=messages, stream=True):
             yield part["message"]["content"]
     else:
-        resp = _client.chat(model=config.CHAT_MODEL, messages=messages, stream=False)
+        resp = client.chat(model=config.CHAT_MODEL, messages=messages, stream=False)
         yield resp["message"]["content"]
 
 
 def get_collection(create: bool = False):
     """Open (or create) the persistent Chroma collection."""
+    import chromadb
+
     db = chromadb.PersistentClient(path=str(config.CHROMA_DIR))
     if create:
         return db.get_or_create_collection(
