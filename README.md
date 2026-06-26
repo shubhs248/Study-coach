@@ -255,5 +255,5 @@ they never need to travel with you.
 
 ---
 
-Made for **Shubham Sharma** — Senior DevOps & Platform Engineer.
+Made by **Shubham Sharma** — Senior DevOps & Platform Engineer.
 MIT licensed: free to use, fork, and share.
