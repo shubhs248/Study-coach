@@ -1,5 +1,5 @@
 """
-Central configuration for the DevOps Study Coach.
+Central configuration for LabSensei.
 
 Everything here can be overridden with environment variables, so you never
 have to edit code to point it at a different machine, model, or labs folder.
@@ -37,7 +37,7 @@ def _load_env_file(path: Path) -> None:
 _load_env_file(PROJECT_DIR / ".env")
 
 # Root folder that contains your practice labs. By default we look one level
-# up (the folder that holds devops-study-coach alongside the *-lab folders).
+# up (the folder that holds labsensei alongside the *-lab folders).
 LABS_ROOT = Path(os.getenv("COACH_LABS_ROOT", PROJECT_DIR.parent)).resolve()
 
 # Which sub-folders (relative to LABS_ROOT) to index.

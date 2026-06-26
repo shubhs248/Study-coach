@@ -1,4 +1,4 @@
-# DevOps Study Coach - local, free, open-source dependencies
+# LabSensei - local, free, open-source dependencies
 # Everything runs offline; the LLM itself is served by Ollama (installed separately).
 ollama>=0.3.0          # talks to your local Ollama server (chat + embeddings)
 chromadb>=0.5.0        # local, file-based vector database (no server, no cloud)

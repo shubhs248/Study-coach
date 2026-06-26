@@ -1,5 +1,7 @@
-# 🎓 DevOps Study Coach
+# 🎓 LabSensei
 
+> Your offline AI sensei for DevOps labs.
+>
 > A **100% free, open-source, fully-local** study agent that turns *your own*
 > [DevOps practice labs](../devops-practice-labs) into an interactive tutor.
 > It runs offline on a normal laptop — no GPU, no API keys, no cloud bills,
@@ -14,7 +16,7 @@ style.
 
 ## 🆚 Why this beats asking ChatGPT/Claude/Gemini to "be my tutor"
 
-| | Generic chatbot | DevOps Study Coach |
+| | Generic chatbot | LabSensei |
 |---|---|---|
 | **Remembers you** | ❌ forgets every session | ✅ persistent learner model (mastery per topic) |
 | **Schedules review** | ❌ never brings anything back | ✅ spaced repetition (SM-2) resurfaces weak topics |
@@ -68,7 +70,7 @@ installing it runs in the background.
 **2. Install Python deps** (Python 3.10+):
 
 ```bash
-cd devops-study-coach
+cd labsensei
 python -m venv .venv
 # Windows PowerShell:
 .\.venv\Scripts\Activate.ps1
@@ -217,12 +219,12 @@ After changing which labs you index, or editing your labs, just re-run
 
 ## 🧳 Running it on your home machine (clone + setup)
 
-The coach needs to *find your labs*. By default it looks for `*-lab` / `*-labs`
-folders **next to** the `devops-study-coach` folder, so the easiest layout is:
+LabSensei needs to *find your labs*. By default it looks for `*-lab` / `*-labs`
+folders **next to** the `labsensei` folder, so the easiest layout is:
 
 ```
 my-study/
-├── devops-study-coach/      # this repo
+├── labsensei/               # this repo
 ├── docker-practice-lab/     # your labs (siblings)
 ├── kubernetes-practice-lab/
 └── ...
@@ -234,9 +236,9 @@ Two common ways to get there:
 
 ```bash
 mkdir my-study && cd my-study
-git clone https://github.com/<you>/devops-study-coach.git
+git clone https://github.com/shubhs248/labsensei.git
 git clone https://github.com/shubhs248/devops-practice-labs.git
-# if your labs are subfolders of devops-practice-labs, point the coach at it:
+# if your labs are subfolders of devops-practice-labs, point LabSensei at it:
 #   PowerShell:  $env:COACH_LABS_ROOT = "$PWD\devops-practice-labs"
 #   bash:        export COACH_LABS_ROOT="$PWD/devops-practice-labs"
 ```
@@ -246,7 +248,7 @@ contains your `*-lab` folders, then run `python ingest.py`.
 
 Then:
 
-1. `cd devops-study-coach`
+1. `cd labsensei`
 2. `pip install -r requirements.txt`
 3. `python setup.py` — re-detects *this* machine's hardware (a beefier home PC can
    auto-pick a bigger model).

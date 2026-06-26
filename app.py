@@ -1,5 +1,5 @@
 """
-DevOps Study Coach - browser UI (Streamlit).
+LabSensei - browser UI (Streamlit).
 
 A friendlier face on the same local, offline tutor: a dashboard with your
 streak, daily goal, and mastery charts, plus Study / Interview / Ask pages.
@@ -20,7 +20,7 @@ import core
 import learner
 from coach import SCORE_RE, TUTOR_SYSTEM
 
-st.set_page_config(page_title="DevOps Study Coach", page_icon="🎓", layout="wide")
+st.set_page_config(page_title="LabSensei", page_icon="🎓", layout="wide")
 
 PAGES = ["📊 Dashboard", "🧠 Study", "🎤 Mock interview", "💬 Ask"]
 
@@ -103,7 +103,7 @@ _init_once()
 status = _service_status()
 
 with st.sidebar:
-    st.title("🎓 Study Coach")
+    st.title("🎓 LabSensei")
     st.caption("Local · offline · private")
 
     ollama_ok = status["ollama"]

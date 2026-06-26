@@ -125,7 +125,7 @@ def recommend(has_gpu: bool, ram_gb: float | None) -> str:
 def write_env(profile_key: str) -> None:
     p = PROFILES[profile_key]
     content = (
-        "# Written by setup.py - your DevOps Study Coach hardware profile.\n"
+        "# Written by setup.py - your LabSensei hardware profile.\n"
         "# Edit or delete this file, or re-run `python setup.py`, to change.\n"
         f"COACH_PROFILE={profile_key}\n"
         f"COACH_CHAT_MODEL={p['chat']}\n"

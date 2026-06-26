@@ -1,5 +1,5 @@
 """
-DevOps Study Coach - a local, offline tutor that beats a generic chatbot.
+LabSensei - a local, offline tutor that beats a generic chatbot.
 
 Why it's better than asking ChatGPT/Claude/Gemini to "be my tutor":
   * It remembers you. A persistent learner model tracks mastery per topic.
@@ -45,7 +45,7 @@ SCORE_RE = re.compile(r"SCORE\s*[:=]\s*([0-5])", re.IGNORECASE)
 
 
 TUTOR_SYSTEM = (
-    "You are the DevOps Study Coach, an expert, demanding-but-kind tutor for a "
+    "You are LabSensei, an expert, demanding-but-kind tutor for a "
     "Senior DevOps & Platform Engineer who is revising. Follow these principles:\n"
     "1. Teach with active recall: prefer guiding questions and hints over walls of text.\n"
     "2. Be grounded: use the provided context from the user's OWN labs. If context is "
@@ -373,7 +373,7 @@ def main() -> None:
 
     console.print(
         Panel.fit(
-            "[bold]DevOps Study Coach[/]\n"
+            "[bold]LabSensei[/]\n"
             f"chat: [cyan]{config.CHAT_MODEL}[/]  -  embed: [cyan]{config.EMBED_MODEL}[/]\n"
             "study / interview / quiz / exercise / ask / progress / topics / help / exit",
             border_style="green",
@@ -388,7 +388,7 @@ def main() -> None:
 
     while True:
         try:
-            line = Prompt.ask("\n[bold green]coach>[/]").strip()
+            line = Prompt.ask("\n[bold green]sensei>[/]").strip()
         except (EOFError, KeyboardInterrupt):
             console.print("\nBye!")
             break
