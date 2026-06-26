@@ -1,0 +1,7 @@
+# DevOps Study Coach - local, free, open-source dependencies
+# Everything runs offline; the LLM itself is served by Ollama (installed separately).
+ollama>=0.3.0          # talks to your local Ollama server (chat + embeddings)
+chromadb>=0.5.0        # local, file-based vector database (no server, no cloud)
+rich>=13.7.0           # nice terminal UI (panels, markdown, colors)
+streamlit>=1.36.0      # optional browser UI (dashboard, study, interview, ask)
+pandas>=2.0.0          # dataframes for the dashboard charts (ships with streamlit)
